@@ -14,7 +14,13 @@ class PageCart{
 
         this._el = options.element;
 
+        this._el.addEventListener('click', this._removeItem.bind(this));
 
+        this._el.addEventListener('click', (event) => {
+            if(!event.target.closest('[data-component="cart"]')) return;
+
+            event.target.classList.toggle("open");
+        });
     }
 
     _show() {
@@ -38,12 +44,13 @@ class PageCart{
             result = '';
 
         elems.forEach(function(item){
-            priceArray.push(item.querySelector('[data-element="quantity"]').innerText * item.querySelector('[data-element="price"]').innerText);
+            let quantity = item.querySelector('[data-element="quantity"]'),
+                price = item.querySelector('[data-element="price"]');
+
+            priceArray.push(quantity.innerText * price.innerText);
         });
 
         function sum(a, b) {
-            let num1 = Number(a);
-            let num2 = Number(b);
             return Number(a) + Number(b);
         }
 
@@ -53,11 +60,24 @@ class PageCart{
     }
 
     _render(product) {
-        this._el.innerHTML += this._compiledTemplate({
+        this._el.querySelector('[data-element="cartProductRender"]').innerHTML += this._compiledTemplate({
             product: product
         });
 
         this._price().innerText = this._setPrice();
+    }
+
+    _removeItem() {
+        if (event.target.closest('[data-element="removeButton"]')) {
+
+            let total = event.target.parentElement.parentElement.parentElement.querySelector('[data-element="total"]'),
+                quantity = event.target.parentElement.querySelector('[data-element="quantity"]'),
+                price = event.target.parentElement.querySelector('[data-element="price"]');
+
+            total.innerText = total.innerText - quantity.innerText * price.innerText;
+
+            event.target.parentElement.innerHTML = '';
+        }
     }
 
     _getElement() {

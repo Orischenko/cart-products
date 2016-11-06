@@ -53,26 +53,52 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 992px) {
+      justify-content: center;
+      flex-direction: column;
+    }
   }
 }
 
 //Cart
-.product-cart {
-  width: 278px;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  top: 0;
-  right: 0;
-  background: #fff;
-  padding: 30px;
-  transform: translateY(37px);
-  -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+.cart {
+  .product-cart {
+    width: 278px;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    background: #fff;
+    padding: 30px 20px;
+    transform: translateY(37px);
+    -webkit-box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .15);
 
-  .total {
-    color: red;
-    order: 1;
+    h3 {
+      font-weight: bold;
+    }
+
+    .cart-products {
+      max-height: 390px;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .total {
+      order: 1;
+      padding-top: 30px;
+      color: #888;
+      > span {
+        color: @itemColorSecondary;
+        font-weight:bold;
+      }
+    }
+  }
+  &.open{
+    .product-cart {
+      display: flex;
+    }
   }
 }
 
@@ -80,6 +106,9 @@ header {
   padding: 0;
   margin: 12px 0 0;
   list-style: none;
+  @media (max-width: 992px) {
+    margin-top: 30px;
+  }
   li {
     float:left;
     margin-left: 72px;
@@ -105,12 +134,24 @@ header {
     li {
       width: 33.33%;
       float: left;
-      padding: 0 15px;
+      padding: 0 15px 0 0;
       margin: 0 0 60px;
+      @media (max-width: 992px) {
+        width: 50%;
+      }
       .inner-wrapper {
         figure {
           img {
             width: 100%;
+          }
+        }
+      }
+
+      h3 {
+        a {
+          color: @itemColorSecondary;
+          &:hover {
+            color: @itemColorPrimary;
           }
         }
       }
@@ -133,6 +174,8 @@ header {
   letter-spacing: .8px;
   margin-top: 20px;
   display: inline-block;
+  text-align: center;
+  order: 2;
   -webkit-transition: all .3s ease;
   -o-transition: all .3s ease;
   transition: all .3s ease;
@@ -141,13 +184,16 @@ header {
     background: transparent;
   }
 }
+
 //Cart
 .cart-item {
   order: 0;
+  position: relative;
+  padding-right: 20px;
   figure {
     max-width: 70px;
     float: left;
-    margin: 0 15px 0;
+    margin: 0 15px 0 0;
     img {
       width: 100%;
     }
@@ -165,5 +211,27 @@ header {
 
   .caption {
     overflow: hidden;
+  }
+
+  .remove-button {
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    &:before {
+      content:'\e5cd';
+      font-family: 'Material Icons';
+      font-size: 15px;
+      line-height: 1em;
+      color: inherit;
+    }
+    &:hover {
+      color: @itemColorSecondary;
+    }
   }
 }

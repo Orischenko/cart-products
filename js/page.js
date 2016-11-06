@@ -74,7 +74,7 @@ class PageController{
         });
 
         this._cart = new PageCart({
-            element: this._el.querySelector('[data-component="productCart"]')
+            element: this._el.querySelector('[data-component="cart"]')
         });
 
         this._viewer = new Viewer({
@@ -102,9 +102,10 @@ class PageController{
             cartItems.push(item.dataset.productId);
 
             if(item.dataset.productId === productId) {
-                let quantity = item.querySelector('[data-element="quantity"]');
-                let total = item.parentElement.querySelector('[data-element="total"]');
-                let price = item.querySelector('[data-element="price"]');
+                let quantity = item.querySelector('[data-element="quantity"]'),
+                    total = item.parentElement.parentElement.querySelector('[data-element="total"]'),
+                    price = item.querySelector('[data-element="price"]');
+
                 quantity.innerText++;
                 total.innerText = Number(total.innerText) + ( (Number(price.innerText) * Number(quantity.innerText)) / Number(quantity.innerText) );
             }

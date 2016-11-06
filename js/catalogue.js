@@ -17,6 +17,7 @@ class PageCatalogue{
         this._render(options.products);
 
         this._el.addEventListener('click', this._onPoductLinkClick.bind(this));
+
     }
 
     _onPoductLinkClick(event) {

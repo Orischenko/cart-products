@@ -1,12 +1,4 @@
-/**
- * Plugin Name: Cart Products
- * Type plugin: single page application
- * Author: Orischenko Alexander
- */
-
-'use strict';
-
-let defaultProducts = [
+[
     {
         "age": 0,
         "id": "spencer-loveseat-charcoal-gray-v1",
@@ -23,7 +15,7 @@ let defaultProducts = [
         "name": "Vitra Miniature Collection Butterfly Stool",
         "snippet": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
         "description": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
-        "price": "56"
+        "price": "56.00"
     },
     {
         "age": 2,
@@ -32,7 +24,7 @@ let defaultProducts = [
         "name": "Beehive Love Seat Black",
         "snippet": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
         "description": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
-        "price": "73"
+        "price": "73.00"
     },
     {
         "age": 3,
@@ -41,7 +33,7 @@ let defaultProducts = [
         "name": "Tuscany Hutch in Noceto",
         "snippet": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
         "description": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
-        "price": "120"
+        "price": "120.00"
     },
     {
         "age": 4,
@@ -50,7 +42,7 @@ let defaultProducts = [
         "name": "Hans Wegner Shell Chair CH07",
         "snippet": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
         "description": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
-        "price": "80"
+        "price": "80.00"
     },
     {
         "age": 5,
@@ -59,69 +51,6 @@ let defaultProducts = [
         "name": "Darton Living Room Set in Chocolate",
         "snippet": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
         "description": "We’ve created the coziest online furniture store. If you are looking for a single item or are planning to furnish a several-store place",
-        "price": "230"
+        "price": "230.00"
     }
-];
-
-
-class PageController{
-    constructor(options) {
-        this._el = options.element;
-
-        this._catalogue = new PageCatalogue({
-            element: this._el.querySelector('[data-component="productCatalogue"]'),
-            products: defaultProducts
-        });
-
-        this._cart = new PageCart({
-            element: this._el.querySelector('[data-component="productCart"]')
-        });
-
-        this._viewer = new Viewer({
-            element: this._el.querySelector('[data-component="cartViewer]')
-        });
-
-        this._single = new Single({
-            element: this._el.querySelector('[data-component="productSingle"]')
-        });
-
-        this._catalogue._getElement().addEventListener('productSelected', this._onProductSelected.bind(this));
-    }
-
-    _onProductSelected(event) {
-        let productId = event.detail.id;
-
-        let productDetails = this._getProductById(productId);
-
-        //Если продукт уже есть в корзине
-        let a = this._cart._getElement().querySelectorAll('[data-element="productCartContainer"]'),
-            elems = Array.prototype.slice.call(a),
-            cartItems = [];
-
-        elems.filter((item) => {
-            cartItems.push(item.dataset.productId);
-
-            if(item.dataset.productId === productId) {
-                let quantity = item.querySelector('[data-element="quantity"]');
-                let total = item.parentElement.querySelector('[data-element="total"]');
-                let price = item.querySelector('[data-element="price"]');
-                quantity.innerText++;
-                total.innerText = Number(total.innerText) + ( (Number(price.innerText) * Number(quantity.innerText)) / Number(quantity.innerText) );
-            }
-        });
-
-        if (cartItems.indexOf(productId) !== -1) {
-            //Если продукт уже есть в корзине
-            return;
-        }
-
-        //Если продукта ещё нет в корзине
-        this._cart._render(productDetails);
-    }
-
-    _getProductById(productId) {
-        return defaultProducts.filter((product) => {
-            return product.id === productId;
-        })[0];
-    }
-}
+]

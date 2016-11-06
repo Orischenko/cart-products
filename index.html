@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>project categories</title>
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" href="fonts/material-icons/css/material-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/app.css">
+
+    <!--LoDash-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.6/lodash.min.js"></script>
+
+    <script src="js/single.js" defer></script>
+    <script src="js/viewer.js" defer></script>
+    <script src="js/cart.js" defer></script>
+    <script src="js/catalogue.js" defer></script>
+    <script src="js/page.js" defer></script>
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+    <div id="content">
+
+        <!--page-->
+        <div id="product-catalogue-page">
+            <header>
+                <div class="top-panel">
+                    <div class="container">
+                        <div class="cart" data-component="cart">
+                            <div class="product-cart" data-component="productCart"><p class="total">Subtotal: &euro;<span data-element="total">0</span></p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-container">
+                    <div class="container">
+                        <div class="flex_wrapper">
+                            <h1 class="logo"><img src="img/logo.png" alt="logo"></h1>
+                            <ul class="main-menu">
+                                <li>home</li>
+                                <li>catalogue</li>
+                                <li>blog</li>
+                                <li>about us</li>
+                                <li>contact us</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!--content-->
+            <div class="container">
+                <div class="product-catalogue" data-component="productCatalogue"></div>
+            </div>
+
+            <div class="product-catalogue" data-component="productSingle"></div>
+            <div data-component="cartViewer"></div>
+            <!--end content-->
+        </div>
+        <!--end page-->
+
+    </div>
+<script type="js/template" id="product-catalogue-template">
+    <ul class="products">
+
+        <% products.forEach((product) => { %>
+            <li data-element="productContainer" data-product-id="<%=product.id%>">
+                <div class="inner-wrapper">
+                    <figure>
+                        <img alt="<%=product.name%>" src="<%=product.imageUrl%>">
+                    </figure>
+                    <h3><a href="#!/products/<%=product.id%>"><%=product.name%></a></h3>
+                    <h4>&euro;<%=product.price%></h4>
+                    <p><%=product.snippet%></p>
+                    <a href="#!/products/<%=product.id%>" data-element="productAddToCart" class="permalink">add to cart</a>
+                </div>
+            </li>
+        <% }); %>
+
+    </ul>
+</script>
+<script type="js/template" id="product-cart-template">
+    <div class="cart-item" data-element="productCartContainer" data-product-id="${product.id}">
+        <figure>
+            <img alt="<%=product.name%>" src="<%=product.imageUrl%>">
+        </figure>
+        <div class="caption">
+            <h5 class="item-title"><a href="#!/products/<%=product.id%>"><%=product.name%></a></h5>
+            <h4 data-element="itemPrice"><span data-element="quantity">1</span> x &euro;<span data-element="price"><%=product.price%></span></h4>
+        </div>
+    </div>
+</script>
+</body>
+</html>

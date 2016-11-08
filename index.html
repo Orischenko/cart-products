@@ -57,10 +57,9 @@
             <!--content-->
             <div class="container">
                 <div class="product-catalogue" data-component="productCatalogue"></div>
+                <div data-component="productSingle"></div>
+                <div data-component="cartViewer"></div>
             </div>
-
-            <div class="product-catalogue" data-component="productSingle"></div>
-            <div data-component="cartViewer"></div>
             <!--end content-->
         </div>
         <!--end page-->
@@ -95,6 +94,13 @@
             <h4 data-element="itemPrice"><span data-element="quantity">1</span> x &euro;<span data-element="price"><%=product.price%></span></h4>
         </div>
         <button class="remove-button" data-element="removeButton">[x]</button>
+    </div>
+</script>
+<script type="js/template" id="product-viewer-template">
+    <div class="shop-table-item">
+        <h5 class="item-title"><a href="#!/products/<%=product.id%>"><%=product.name%></a></h5>
+        <h4 data-element="itemPrice"><span data-element="quantity">1</span></h4>
+        <h4>&euro;<span data-element="price"><%=product.price%></span></h4>
     </div>
 </script>
 </body>

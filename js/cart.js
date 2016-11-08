@@ -21,6 +21,18 @@ class PageCart{
 
             event.target.classList.toggle("open");
         });
+
+        this._el.addEventListener('click', (event) => {
+            if(!event.target.closest('[data-element="viewCart"]')) return;
+
+            event.preventDefault();
+
+            this._el.classList.remove('open');
+
+            let customEvent = new CustomEvent('viewCart');
+
+            this._el.dispatchEvent(customEvent);
+        });
     }
 
     _show() {
@@ -76,8 +88,13 @@ class PageCart{
 
             total.innerText = total.innerText - quantity.innerText * price.innerText;
 
+            event.target.parentElement.removeAttribute('data-product-id');
             event.target.parentElement.innerHTML = '';
         }
+    }
+
+    _getProductsCartContainer() {
+        return this._el.querySelectorAll('[data-element="productCartContainer"]');
     }
 
     _getElement() {

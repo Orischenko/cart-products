@@ -78,14 +78,23 @@ class PageController{
         });
 
         this._viewer = new Viewer({
-            element: this._el.querySelector('[data-component="cartViewer]')
+            element: this._el.querySelector('[data-component="cartViewer"]')
         });
+
+        this._viewer._hide();
 
         this._single = new Single({
             element: this._el.querySelector('[data-component="productSingle"]')
         });
 
+        this._single._hide();
+
         this._catalogue._getElement().addEventListener('productSelected', this._onProductSelected.bind(this));
+
+        this._cart._getElement().addEventListener('viewCart', (event) => {
+            this._catalogue._hide();
+            this._viewer._show();
+        });
     }
 
     _onProductSelected(event) {
@@ -94,9 +103,8 @@ class PageController{
         let productDetails = this._getProductById(productId);
 
         //Если продукт уже есть в корзине
-        let a = this._cart._getElement().querySelectorAll('[data-element="productCartContainer"]'),
-            elems = Array.prototype.slice.call(a),
-            cartItems = [];
+        let elems = Array.prototype.slice.call(this._cart._getProductsCartContainer()),
+        cartItems = [];
 
         elems.filter((item) => {
             cartItems.push(item.dataset.productId);
@@ -118,6 +126,7 @@ class PageController{
 
         //Если продукта ещё нет в корзине
         this._cart._render(productDetails);
+        this._viewer._render(productDetails);
     }
 
     _getProductById(productId) {

@@ -3,4 +3,4 @@
 Demo
 ====
 
-**[DEMO](https://orischenko.github.io/react-redux-blog/)**
+**[DEMO](https://orischenko.github.io/cart-products/)**
